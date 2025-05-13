@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouton Précédent</title>
+    <style>
+        /* Style de base pour le bouton */
+        .prev-btn-container {
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .prev-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            
+            background-color: #ffffff;
+            border: 2px solid #2ba527;
+            color:#2ba527;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: fixed;
+            margin-left: 10px;
+        }
+        
+        .prev-btn:hover {
+            background-color: #2ba527;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .prev-btn:active {
+            transform: translateY(0);
+        }
+        
+        .prev-btn i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        /* Style pour la version sans Font Awesome */
+        .prev-btn .arrow-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border-left: 3px solid white;
+            border-bottom: 3px solid white;
+            transform: rotate(45deg);
+        }
+        .prev-btn-container {
+            margin: 20px 0;
+        }
+        .prev-btn {
+            display: inline-block;
+            background: #e0e5ec;
+            color: #2d3436;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow:  3px 3px 6px #a3b1c6, -3px -3px 6px #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .prev-btn:hover {
+            background: #d6dbe3;
+            color: #6c5ce7;
+        }
+        .prev-btn i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Conteneur du bouton Précédent -->
+    <div class="prev-btn-container">
+        <a href="javascript:history.back()" class="prev-btn">
+            <i class="fas fa-arrow-left"></i> Précédent
+        </a>
+    </div>
+
+    <!-- Font Awesome (version 6) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // Vérifie si Font Awesome est chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtnFA = document.getElementById('prevBtnFA');
+            const prevBtn = document.getElementById('prevBtn');
+            
+            // Si Font Awesome n'est pas chargé après un délai, affiche la version de secours
+            setTimeout(function() {
+                if (!window.FontAwesome || !document.querySelector('.fa-arrow-left')) {
+                    prevBtnFA.style.display = 'none';
+                    prevBtn.style.display = 'inline-flex';
+                }
+            }, 1000);
+            
+            // Gestionnaire d'événement pour les deux boutons
+            prevBtnFA.addEventListener('click', goBack);
+            prevBtn.addEventListener('click', goBack);
+            
+            // Fonction pour revenir en arrière
+            function goBack() {
+                // Si il y a un historique, on revient en arrière
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    // Sinon, on redirige vers une page par défaut
+                    window.location.href = '/'; // Changez '/' par votre URL par défaut
+                }
+            }
+            
+            // Ajoute une classe pendant le clic pour un effet visuel
+            const buttons = document.querySelectorAll('.prev-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('mousedown', function() {
+                    this.classList.add('prev-btn-active');
+                });
+                btn.addEventListener('mouseup', function() {
+                    this.classList.remove('prev-btn-active');
+                });
+                btn.addEventListener('mouseleave', function() {
+                    this.classList.remove('prev-btn-active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

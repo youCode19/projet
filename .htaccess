@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /projet/
+
+    # Rediriger les URLs du type /produit/slug vers /products/product.php?slug=slug
+    RewriteRule ^produit/([^/]+)$ products/product.php?slug=$1 [QSA,L]
+
+    # Rediriger les URLs du type /categorie/slug vers /products/category.php?slug=slug
+    RewriteRule ^categorie/([^/]+)$ products/category.php?slug=$1 [QSA,L]
+
+    # Exemple de recherche : /recherche?q=truc
+    RewriteRule ^recherche$ products/search.php [QSA,L]
+</IfModule>
